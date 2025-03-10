@@ -1,2 +1,118 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestione Memoria</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px;
+      }
+      .memory {
+        width: 300px;
+        border: 2px solid black;
+        display: flex;
+        flex-direction: column-reverse;
+      }
+      .segment {
+        padding: 10px;
+        text-align: center;
+        border-top: 1px solid black;
+      }
+      .text {
+        background-color: #ffcccb;
+      }
+      .data {
+        background-color: #add8e6;
+      }
+      .heap {
+        background-color: #90ee90;
+        min-height: 50px;
+      }
+      .stack {
+        background-color: #f0e68c;
+        min-height: 50px;
+      }
+      .legend {
+        margin-top: 20px;
+      }
+      .heap-block,
+      .stack-frame {
+        background-color: #2e8b57;
+        color: white;
+        margin: 2px;
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Rappresentazione della Memoria</h1>
+    <div class="memory">
+      <div class="segment stack" id="stack">Stack</div>
+      <div class="segment heap" id="heap">Heap</div>
+      <div class="segment data">Data Segment</div>
+      <div class="segment text">Text Segment</div>
+    </div>
 
-jj
+    <button onclick="allocateMemory()">Allocare Memoria</button>
+    <button onclick="deallocateMemory()">Deallocare Memoria</button>
+    <button onclick="pushStack()">Aggiungi Stack Frame</button>
+    <button onclick="popStack()">Rimuovi Stack Frame</button>
+
+    <div class="legend">
+      <h2>Legenda</h2>
+      <p>
+        <span style="background-color: #ffcccb; padding: 2px">Text Segment</span
+        >: Contiene il codice eseguibile.
+      </p>
+      <p>
+        <span style="background-color: #add8e6; padding: 2px">Data Segment</span
+        >: Contiene variabili globali e statiche.
+      </p>
+      <p>
+        <span style="background-color: #90ee90; padding: 2px">Heap</span>:
+        Contiene la memoria allocata dinamicamente.
+      </p>
+      <p>
+        <span style="background-color: #f0e68c; padding: 2px">Stack</span>:
+        Contiene le chiamate alle funzioni e le variabili locali.
+      </p>
+    </div>
+
+    <script>
+      function allocateMemory() {
+        let heap = document.getElementById("heap");
+        let block = document.createElement("div");
+        block.className = "heap-block";
+        block.textContent = "Heap Block";
+        heap.appendChild(block);
+      }
+
+      function deallocateMemory() {
+        let heap = document.getElementById("heap");
+        if (heap.lastChild.className === "heap-block") {
+          heap.removeChild(heap.lastChild);
+        }
+      }
+
+      function pushStack() {
+        let stack = document.getElementById("stack");
+        let frame = document.createElement("div");
+        frame.className = "stack-frame";
+        frame.textContent = "Stack Frame";
+        stack.appendChild(frame);
+      }
+
+      function popStack() {
+        let stack = document.getElementById("stack");
+        if (stack.lastChild.className === "stack-frame") {
+          stack.removeChild(stack.lastChild);
+        }
+      }
+    </script>
+  </body>
+</html>
